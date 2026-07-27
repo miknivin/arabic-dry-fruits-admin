@@ -1,3 +1,4 @@
+// Database connection helper for MongoDB Atlas
 import mongoose from "mongoose";
 
 const MONGODB_URI =
