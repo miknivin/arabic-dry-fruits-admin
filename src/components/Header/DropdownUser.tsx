@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/ClickOutside";
 import { useDispatch, useSelector } from "react-redux";
-import { useLazyLogoutQuery } from "@/redux/api/authApi";
+import { useLazyLogoutQuery, authApi } from "@/redux/api/authApi";
+import { userApi } from "@/redux/api/userApi";
 import { useRouter } from "next/navigation";
 import { setUser, setIsAuthenticated } from "@/redux/features/userSlice";
 
@@ -22,6 +23,8 @@ const DropdownUser = () => {
     if (isSuccess) {
       dispatch(setUser(null));
       dispatch(setIsAuthenticated(false));
+      dispatch(userApi.util.resetApiState());
+      dispatch(authApi.util.resetApiState());
       router.push("/");
     }
   }, [dispatch, isSuccess, router]);

@@ -57,7 +57,7 @@ export const authApi = createApi({
       },
     }),
     logout: builder.query({
-      query: () => "auth/logout",
+      query: () => `auth/logout?t=${Date.now()}`,
     }),
   }),
 });
