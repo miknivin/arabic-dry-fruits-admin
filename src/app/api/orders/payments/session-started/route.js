@@ -49,7 +49,6 @@ export async function POST(req) {
       amount: itemsPrice * 100,
       currency: "INR",
       receipt: `order_${Date.now()}`,
-      payment_capture: 1,
     };
 
     const order = await razorpay.orders.create(options);
