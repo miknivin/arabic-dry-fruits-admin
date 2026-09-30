@@ -33,12 +33,12 @@ export async function POST(req) {
     const authHeader = req.headers.get("authorization");
     const token = authHeader?.split(" ")[1]; // Extract token after "Bearer "
 
-    // Define the expected token (match with the one in Google Apps Script)
+    // Define the expected token from environment variables
     const expectedToken =
-      "803d7a40bb5086e57b6caf1a2f7815a4b41572ca4c16e7defc9c20cfee7ded3e"; // Replace with the same token
+      process.env.GSHEET_UPDATE_TOKEN || process.env.GSHEET_API_TOKEN;
 
     // Validate the token
-    if (!token || token !== expectedToken) {
+    if (!expectedToken || !token || token !== expectedToken) {
       return NextResponse.json(
         { error: "Invalid or missing token" },
         { status: 403 },

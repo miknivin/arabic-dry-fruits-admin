@@ -3,7 +3,7 @@ import Order from "@/models/Order";
 import dbConnect from "@/lib/db/connection";
 
 // Server-side token (store in environment variables for security)
-const API_TOKEN = process.env.GSHEET_API_TOKEN || "your-static-token-here";
+const API_TOKEN = process.env.GSHEET_API_TOKEN;
 
 // Middleware to verify token
 async function verifyToken(req) {
@@ -17,8 +17,8 @@ async function verifyToken(req) {
     const token = authHeader.replace("Bearer ", "");
 
     // Compare token with server-side token
-    if (token !== API_TOKEN) {
-      return { success: false, message: "Invalid token" };
+    if (!API_TOKEN || token !== API_TOKEN) {
+      return { success: false, message: "Invalid or unconfigured token" };
     }
 
     return { success: true };
